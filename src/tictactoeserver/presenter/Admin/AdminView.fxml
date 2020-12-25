@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<StackPane prefHeight="150.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="backgroundIV" fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" />
+      <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+         <top>
+            <Label fx:id="titleLbl" alignment="CENTER" prefHeight="50.0" prefWidth="280.0" text="X Candy O Admin" textAlignment="CENTER" textFill="#00b8d0" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="Cooper Black" size="30.0" />
+               </font>
+            </Label>
+         </top>
+         <StackPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </StackPane.margin>
+         <center>
+            <PieChart fx:id="playersPieChart" prefHeight="248.0" prefWidth="502.0" title="Players Statistics" BorderPane.alignment="CENTER" />
+         </center>
+         <right>
+            <AnchorPane prefHeight="248.0" prefWidth="10.0" BorderPane.alignment="CENTER" />
+         </right>
+         <bottom>
+            <AnchorPane prefHeight="62.0" prefWidth="560.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="startBtn" layoutX="107.0" mnemonicParsing="false" prefHeight="3.0" prefWidth="347.0" style="-fx-background-color: #00B8D0;" text="Start" textFill="WHITE">
+                     <font>
+                        <Font name="Cooper Black" size="20.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+         </bottom>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+         <left>
+            <AnchorPane prefHeight="248.0" prefWidth="10.0" BorderPane.alignment="CENTER" />
+         </left>
+      </BorderPane>
+   </children>
+</StackPane>

@@ -10,7 +10,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import tictactoeserver.presenter.HomeViewBase;
+import tictactoeserver.presenter.Admin.AdminController;
+import tictactoeserver.presenter.Admin.AdminViewBase;
 
 /**
  *
@@ -20,10 +21,7 @@ public class TicTacToeServer extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = new HomeViewBase(stage);
-        
-        Scene scene = new Scene(root);
-        
+        Scene scene = new Scene((new AdminController()).getAdminView());
         stage.setScene(scene);
         stage.show();
     }
