@@ -12,6 +12,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.*;
 import javafx.collections.FXCollections;
+import tictactoeserver.repository.ClientDao;
+import tictactoeserver.repository.ClientDaoImpl;
 
 
 /**
@@ -21,17 +23,34 @@ import javafx.collections.FXCollections;
 
 //
 public class AdminController implements Initializable {
-    
+    boolean flag=true;
     //MARK: - Properties
     private AdminViewBase adminView;
+    // create object from Dao
+    
+    ClientDao client=ClientDaoImpl.creatDB();
     
     //MARK: - Constructor
     public AdminController(){
         
         //create new view
+        
         adminView = new AdminViewBase();
         adminView.startBtn.setOnAction((ActionEvent event) -> {
+            
+           
+           if(flag){ 
            adminView.startBtn.setText("Stop");
+           flag=!flag;
+           
+           
+           }else{
+           adminView.startBtn.setText("start");
+           flag=!flag;
+           
+           
+           
+           }         
         });
         setupBieChart(100, 120, 300);
          

@@ -1,14 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package tictactoeserver.repository;
 
-/**
- *
- * @author A.Elfarsisy
- */
-public class ClientDao {
+import java.util.ArrayList;
+
+// interface for the DAO 
+public interface ClientDao{
     
+   
+   public int loginPlayer(String user, String pass);
+   public int signUpPlayer(String user, String pass);
+   public int getScore(String user);
+   public void changeScore(String user);
+   public ArrayList<String> getPlayers();
 }
