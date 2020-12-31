@@ -5,6 +5,11 @@
  */
 package tictactoeserver.presenter.Admin;
 
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.net.ServerSocket;
+import java.net.SocketException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
@@ -12,9 +17,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.*;
 import javafx.collections.FXCollections;
+import tictactoeserver.network.HandelLogin;
 import tictactoeserver.repository.ClientDao;
 import tictactoeserver.repository.ClientDaoImpl;
-
 
 /**
  *
@@ -52,8 +57,8 @@ public class AdminController implements Initializable {
            
            }         
         });
-        setupBieChart(100, 120, 300);
-         
+        
+       setupBieChart(100, 120, 300); 
     }
 
     
