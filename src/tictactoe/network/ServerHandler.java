@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import tictactoe.model.User;
 import tictactoe.network.model.NWResponse;
+import tictactoe.network.model.RequestType;
 import tictactoe.network.model.ResponseStatus;
 import tictactoe.repository.ClientDaoImpl;
 
@@ -27,13 +28,11 @@ public class ServerHandler extends Thread {
             client = sc;
             oos = new ObjectOutputStream(sc.getOutputStream());
             ois = new ObjectInputStream(sc.getInputStream());
-
             ServerHandler.clientsVector.add(this);
             start();
         } catch (IOException ex) {
             Logger.getLogger(ServerHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     Boolean isClientExist(String userName) {
@@ -80,10 +79,13 @@ public class ServerHandler extends Thread {
         NWResponse response = null;
 
         switch (request.getType()) {
-
             case LOGIN:
                 user = (User) request.getData();
+                System.out.println("trying to log in ");
                 response = dao.loginPlayer(user.getUserName(), user.getPassword());
+//                
+//                System.out.println(response.getStatus());
+
                 break;
             case SIGNUP:
                 user = (User) request.getData();
@@ -95,13 +97,14 @@ public class ServerHandler extends Thread {
                 response = new NWResponse(getOnlinePlayers(), ResponseStatus.SUCCESS, "");
                 break;
             case LOGOUT:
-
                 removeClient();
                 break;
-
         }
         try {
-            oos.writeObject(response);
+            if (request.getType() != RequestType.LOGOUT) {
+                oos.writeObject(response);
+            }
+
         } catch (IOException ex) {
             Logger.getLogger(ServerHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -121,9 +124,10 @@ public class ServerHandler extends Thread {
         try {
             NWResponse response = new NWResponse(null, ResponseStatus.SUCCESS, "Logged out");
             oos.writeObject(response);
-            stop();
-            oos.close();
-            ois.close();
+//            oos.close();
+//            ois.close();
+//            client.close(); 
+//            stop();
             ServerHandler.clientsVector.remove(this);
         } catch (IOException ex) {
             Logger.getLogger(ServerHandler.class.getName()).log(Level.SEVERE, null, ex);
