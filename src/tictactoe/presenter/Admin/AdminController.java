@@ -3,13 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tictactoeserver.presenter.Admin;
+package tictactoe.presenter.Admin;
 
-import java.io.DataInputStream;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.net.ServerSocket;
-import java.net.SocketException;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
@@ -17,9 +13,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.*;
 import javafx.collections.FXCollections;
-import tictactoeserver.network.HandelLogin;
-import tictactoeserver.repository.ClientDao;
-import tictactoeserver.repository.ClientDaoImpl;
+import tictactoe.repository.ClientDao;
+import tictactoe.repository.ClientDaoImpl;
 
 /**
  *
@@ -33,7 +28,7 @@ public class AdminController implements Initializable {
     private AdminViewBase adminView;
     // create object from Dao
     
-    ClientDao client=ClientDaoImpl.creatDB();
+    ClientDao client=ClientDaoImpl.getInstance();
     
     //MARK: - Constructor
     public AdminController(){

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tictactoeserver.network;
+package tictactoe.network;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -18,19 +18,26 @@ import java.util.logging.Logger;
 public class Server {
 
     ServerSocket serverSocket;
-    public Server(){
+    Socket socket;
+
+    public Server() {
         try {
-            serverSocket = new ServerSocket(5005);
-            while(true){
-                Socket s = serverSocket.accept();
-                new ServerHandler(s);
+            serverSocket = new ServerSocket(5006);
+
+            while (true) {
+                try {
+                    socket = serverSocket.accept();
+                    System.out.println("Accept");
+                    new ServerHandler(socket);
+                } catch (IOException ex) {
+                    Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-            
+
         } catch (IOException ex) {
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 
 }
-
-

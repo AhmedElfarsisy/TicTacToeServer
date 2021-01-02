@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tictactoeserver.network;
+package tictactoe.network.model;
 
-public enum RequestType {
+import java.io.Serializable;
+
+public enum RequestType implements Serializable {
     
     LOGIN,   //user  username password 
     SIGNUP,   //  user  username password 

@@ -1,35 +1,36 @@
+package tictactoe.model;
+
+
+
+
+import java.io.Serializable;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tictactoeserver.repository;
-
-import java.io.Serializable;
-
 
 /**
  *
  * @author A.Elfarsisy
  */
 public class User implements Serializable {
-    String userName; 
-    String password; 
-    int score; 
-    int state; 
+   private String userName; 
+    private String password; 
+    private Integer score; 
 
     public User(String userName, String password) {
         this.userName = userName;
         this.password = password;
     }
 
-    public User(String userName, String password, int score,int state) {
+    public User(String userName, String password, Integer score) {
         this.userName = userName;
         this.password = password;
         this.score = score;
-        this.state = state;
     }
-    public User(String userName, int score) {
+    public User(String userName, Integer score) {
         this.userName = userName;
         this.score = score;
         
@@ -51,19 +52,12 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public int getScore() {
+    public Integer getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(Integer score) {
         this.score = score;
     }
 
-    public int getState() {
-        return state;
-    }
-
-    public void setState(int state) {
-        this.state = state;
-    }
 }

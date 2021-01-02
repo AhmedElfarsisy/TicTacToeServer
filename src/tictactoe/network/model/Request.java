@@ -1,7 +1,9 @@
 
-package tictactoeserver.network;
+package tictactoe.network.model;
 
-public class Request<T> {
+import java.io.Serializable;
+
+public class Request<T> implements Serializable{
     private RequestType type;
     private T data;
     
