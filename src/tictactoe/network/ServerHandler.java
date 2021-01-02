@@ -1,15 +1,14 @@
 package tictactoe.network;
 
 import tictactoe.network.model.Request;
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import tictactoe.network.model.RequestType;
 import tictactoe.model.User;
 import tictactoe.network.model.NWResponse;
 import tictactoe.network.model.ResponseStatus;
@@ -19,7 +18,8 @@ public class ServerHandler extends Thread {
 
     ObjectInputStream ois;
     ObjectOutputStream oos;
-    static Vector<ServerHandler> ClientsVector = new Vector<>();
+    User user;
+    static Vector<ServerHandler> clientsVector = new Vector<>();
     Socket client;
 
     public ServerHandler(Socket sc) {
@@ -27,12 +27,29 @@ public class ServerHandler extends Thread {
             client = sc;
             oos = new ObjectOutputStream(sc.getOutputStream());
             ois = new ObjectInputStream(sc.getInputStream());
-            ServerHandler.ClientsVector.add(this);
+
+            ServerHandler.clientsVector.add(this);
             start();
         } catch (IOException ex) {
             Logger.getLogger(ServerHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+
+    Boolean isClientExist(String userName) {
+        Boolean isExist = false;
+        for (ServerHandler cl : ServerHandler.clientsVector) {
+            if (cl.user != null && cl.user.getUserName().equals(userName)) {
+                isExist = true;
+            }
+        }
+        return isExist;
+    }
+
+    private void setUser(User user) {
+        if (!isClientExist(user.getUserName())) {
+            this.user = user;
+        }
     }
 
     @Override
@@ -72,6 +89,16 @@ public class ServerHandler extends Thread {
                 user = (User) request.getData();
                 response = dao.signupPlayer(user.getUserName(), user.getPassword());
                 break;
+            case GETONLINEPLAYERS:
+                user = (User) request.getData();
+                setUser(user);
+                response = new NWResponse(getOnlinePlayers(), ResponseStatus.SUCCESS, "");
+                break;
+            case LOGOUT:
+
+                removeClient();
+                break;
+
         }
         try {
             oos.writeObject(response);
@@ -79,4 +106,29 @@ public class ServerHandler extends Thread {
             Logger.getLogger(ServerHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    private ArrayList<User> getOnlinePlayers() {
+        ArrayList<User> onlinePlayers = new ArrayList<>();
+        clientsVector.forEach((cl) -> {
+            if (cl.user != null && cl.user != this.user) {
+                onlinePlayers.add(cl.user);
+            }
+        });
+        return onlinePlayers;
+    }
+
+    private void removeClient() {
+        try {
+            NWResponse response = new NWResponse(null, ResponseStatus.SUCCESS, "Logged out");
+            oos.writeObject(response);
+            stop();
+            oos.close();
+            ois.close();
+            ServerHandler.clientsVector.remove(this);
+        } catch (IOException ex) {
+            Logger.getLogger(ServerHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
 }
