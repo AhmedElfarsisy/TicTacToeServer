@@ -11,7 +11,6 @@ public enum RequestType implements Serializable {
     
     LOGIN,   //user  username password 
     SIGNUP,   //  user  username password 
-    CONNECT,   // user   username
     REQUESTGAME, //  user  username anotherplayer
     ACCEPTGAME,  //  user  username anotherplayer
     REJECTGAME,
@@ -19,4 +18,5 @@ public enum RequestType implements Serializable {
     LOGOUT,
     GETONLINEPLAYERS,
     ENDGAME,
+    UPDATEONLINEPLAYERS
 }

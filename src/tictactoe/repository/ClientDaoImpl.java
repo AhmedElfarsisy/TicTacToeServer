@@ -181,4 +181,20 @@ public class ClientDaoImpl implements ClientDao {
         return arr;
     }
 
+    public int getClientsCount() {
+        int Clientscount = 0;
+        PreparedStatement pst;
+        try {
+            pst = con.prepareStatement("select COUNT(*) from players ");
+            ResultSet r = pst.executeQuery();
+            r.next();
+            Clientscount = r.getInt(1);
+        } catch (SQLException ex) {
+            Logger.getLogger(ClientDao.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+
+        return Clientscount;
+    }
+
 }
